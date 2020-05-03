@@ -12,6 +12,10 @@ using namespace std;
 int main()
 {
 	Socket s(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	string host = "192.168.1.27";
+	cout << s.GetHostnamebyaddr(host.c_str()) << endl;
+	cout << s.Gservbyport(22) << endl;
+	cout << s.Gservbyname("ssh") << endl;
 	int c = s.Connect("192.168.1.27", 555);
 	if (c == 1)
 	{
